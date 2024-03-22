@@ -1,5 +1,5 @@
 """
-Scrapes a headline from The Daily Pennsylvanian website and saves it to a 
+Scrapes a headline from The Daily Pennsylvanian Opinion subpage and saves it to a 
 JSON file that tracks headlines over time.
 """
 
@@ -15,19 +15,24 @@ import loguru
 
 def scrape_data_point():
     """
-    Scrapes the main headline from The Daily Pennsylvanian home page.
+    Scrapes the most read headline from The Daily Pennsylvanian Opinion page.
 
     Returns:
         str: The headline text if found, otherwise an empty string.
     """
-    req = requests.get("https://www.thedp.com")
+    req = requests.get("https://www.thedp.com/section/opinion")
     loguru.logger.info(f"Request URL: {req.url}")
     loguru.logger.info(f"Request status code: {req.status_code}")
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        target_element = soup.find("a", class_="frontpage-link")
-        data_point = "" if target_element is None else target_element.text
+        all_opinions = soup.find_all("h3", class_="standard-link")
+        data_point = "" 
+        for opinion in all_opinions:
+            target_element = opinion.find('a')
+            if target_element:
+                data_point = target_element.text
+                break
         loguru.logger.info(f"Data point: {data_point}")
         return data_point
 
