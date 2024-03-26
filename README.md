@@ -140,4 +140,4 @@ But it is important to use it responsibly and ethically. Here are some guideline
 
 The purpose of the refactoring is to scrape the most recent article from the Opinions subpage of the Daily Pennsylvanian (that is the first article under the Opinions tab). This is useful as it helps keep students up to date in regards to what is currently a hot conversation topic.
 
-Changes were mainly made to the source URL so that it points to the opinions section, the scrape data point function such that it looks for elements with tag 'h3' instead of 'a' and sets data_point to the first such element's title that matches this description.
+Changes were mainly made to the source URL so that it points to the opinions section, the scrape data point function such that it looks for elements with tag 'h3' instead of 'a' and sets data_point to the first such element's title that matches this description. 
